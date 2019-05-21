@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
+
+<script>
+    var url = 'http://localhost:8080/endpointService'
+    var socket = new SockJS(url, undefined, {protocols_whitelist: ['websocket']});
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        stompClient.subscribe('/topic/sub1', function(message){
+            console.log(message);
+        });
+
+        // stompClient.subscribe('/user/' + userId + '/message', function(message){
+        //     var messageEntity = JSON.parse(message.body);
+        // });
+    });
+</script>
+
+</body>
+</html>
